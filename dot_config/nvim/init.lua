@@ -144,7 +144,7 @@ end
 -- autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "~/.local/share/chezmoi/*" },
-  command = "! chezmoi apply --source-path "%"",
+  command = [[! chezmoi apply --source-path "%"]],
 })
 
 -- Setup Lazy.nvim
