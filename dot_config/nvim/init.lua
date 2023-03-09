@@ -489,7 +489,7 @@ require("lazy").setup({
           disabled_filetypes = { statusline = { "dashboard", "lazy", "alpha" } },
         },
         sections = {
-          lualine_a = { "mode", fmt = function(str) return str:sub(1,1) end }},
+          lualine_a = {{ "mode", fmt = function(str) return str:sub(1,1) end }},
           lualine_b = { "branch" },
           lualine_c = {
             {
