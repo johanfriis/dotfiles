@@ -6,7 +6,7 @@ verbose = true
 
 [merge]
   command = "nvim"
-  args = ["-d", "{{ .Destination }}", "{{ .Target }}"]
+  args = ["-d", "{{ .Destination }}", "{{ .Source }}"]
 
 [edit]
   command = "nvim"
