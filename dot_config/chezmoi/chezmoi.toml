@@ -1,0 +1,13 @@
+verbose = true
+
+[git]
+  autoCommit = true
+  autoPush = true
+
+[merge]
+  command = "nvim"
+  args = ["-d", "{{ .Destination }}", "{{ .Target }}"]
+
+[edit]
+  command = "nvim"
+  apply = true
