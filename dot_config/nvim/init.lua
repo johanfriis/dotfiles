@@ -492,7 +492,6 @@ require("lazy").setup({
           lualine_a = {{ "mode", fmt = function(str) return str:sub(1,1) end }},
           lualine_b = { "branch" },
           lualine_c = {
-            {"buffers"},
             {
               "diagnostics",
               symbols = {
