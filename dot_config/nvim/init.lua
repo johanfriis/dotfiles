@@ -144,6 +144,15 @@ end
 
 require("lazy").setup({
 
+	-- Buffer / Mark / tabpages switcher
+  {
+    "toppair/reach.nvim",
+    opts = {
+      notificaions = true
+    },
+    config = true
+  },
+
 	-- colorscheme
   {
     "folke/tokyonight.nvim",
