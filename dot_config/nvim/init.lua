@@ -138,6 +138,15 @@ function get_root()
   return root
 end
 
+-- Autocommands
+
+
+-- autocmd BufWritePost ~/.local/share/chezmoi/* ! chezmoi apply --source-path "%"
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "~/.local/share/chezmoi/*" },
+  command = "! chezmoi apply --source-path "%"",
+})
+
 -- Setup Lazy.nvim
 
 require("lazy").setup({
