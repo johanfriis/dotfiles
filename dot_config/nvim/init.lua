@@ -138,6 +138,27 @@ function get_root()
   return root
 end
 
+-- this will return a function that calls telescope.
+-- cwd will default to lazyvim.util.get_root
+-- for `files`, git_files or find_files will be chosen depending on .git
+function telescope(builtin, opts)
+  local params = { builtin = builtin, opts = opts }
+  return function()
+    builtin = params.builtin
+    opts = params.opts
+    opts = vim.tbl_deep_extend("force", { cwd = get_root() }, opts or {})
+    if builtin == "files" then
+      if vim.loop.fs_stat((opts.cwd or vim.loop.cwd()) .. "/.git") then
+        opts.show_untracked = true
+        builtin = "git_files"
+      else
+        builtin = "find_files"
+      end
+    end
+    require("telescope.builtin")[builtin](opts)
+  end
+end
+
 -- Autocommands
 
 -- Setup Lazy.nvim
@@ -260,13 +281,13 @@ require("lazy").setup({
     version = false, -- telescope did only one release, so use HEAD for now
     keys = {
       { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-      { "<leader>/", Util.telescope("live_grep"), desc = "Find in Files (Grep)" },
+      { "<leader>/", telescope("live_grep"), desc = "Find in Files (Grep)" },
       { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+      { "<leader><space>", telescope("files"), desc = "Find Files (root dir)" },
       -- find
       { "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-      { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+      { "<leader>ff", telescope("files"), desc = "Find Files (root dir)" },
+      { "<leader>fF", telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
       -- git
       { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
@@ -277,8 +298,8 @@ require("lazy").setup({
       { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
       { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
       { "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-      { "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-      { "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+      { "<leader>sg", telescope("live_grep"), desc = "Grep (root dir)" },
+      { "<leader>sG", telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
       { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
       { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
       { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
@@ -286,12 +307,12 @@ require("lazy").setup({
       { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
       { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
       { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-      { "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
-      { "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
-      { "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+      { "<leader>sw", telescope("grep_string"), desc = "Word (root dir)" },
+      { "<leader>sW", telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
+      { "<leader>uC", telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
       {
         "<leader>ss",
-        Util.telescope("lsp_document_symbols", {
+        telescope("lsp_document_symbols", {
           symbols = {
             "Class",
             "Function",
@@ -309,7 +330,7 @@ require("lazy").setup({
       },
       {
         "<leader>sS",
-        Util.telescope("lsp_workspace_symbols", {
+        telescope("lsp_workspace_symbols", {
           symbols = {
             "Class",
             "Function",
@@ -327,11 +348,33 @@ require("lazy").setup({
       },
     },
     opts = {
+      pickers = {
+        buffers = {
+          results_title = 'Open Buffers',
+          prompt_title = 'Search Buffers',
+          path_display = { 'smart' },
+          layout_strategy = 'vertical',
+          layout_config = {
+            anchor = 'N',
+            -- height = { 0.9, max = 8 },
+            height = 0.3,
+            prompt_position = 'top',
+            preview_height = 0,
+          },
+          initial_mode = 'normal',
+          ignore_current_buffer = true,
+          sort_mru = true,
+        },
+        find_files = {
+          preview_height = 0
+        }
+      },
       defaults = {
         prompt_prefix = " ",
         selection_caret = " ",
         mappings = {
           i = {
+            ["<c-h>"] = "which_key",
             ["<c-t>"] = function(...)
               return require("trouble.providers.telescope").open_with_trouble(...)
             end,
@@ -339,28 +382,19 @@ require("lazy").setup({
               return require("trouble.providers.telescope").open_selected_with_trouble(...)
             end,
             ["<a-i>"] = function()
-              Util.telescope("find_files", { no_ignore = true })()
+              telescope("find_files", { no_ignore = true })()
             end,
             ["<a-h>"] = function()
-              Util.telescope("find_files", { hidden = true })()
+              telescope("find_files", { hidden = true })()
             end,
-            ["<C-Down>"] = function(...)
-              return require("telescope.actions").cycle_history_next(...)
-            end,
-            ["<C-Up>"] = function(...)
-              return require("telescope.actions").cycle_history_prev(...)
-            end,
-            ["<C-f>"] = function(...)
-              return require("telescope.actions").preview_scrolling_down(...)
-            end,
-            ["<C-b>"] = function(...)
-              return require("telescope.actions").preview_scrolling_up(...)
-            end,
+            ["<C-Down>"] = "cycle_history_next",
+            ["<C-Up>"] = "cycle_history_prev",
+            ["<C-f>"] = "preview_scrolling_down",
+            ["<C-b>"] = "preview_scrolling_up",
           },
           n = {
-            ["q"] = function(...)
-              return require("telescope.actions").close(...)
-            end,
+            ["?"] = "which_key",
+            ["q"] = "close",
           },
         },
       },
@@ -563,34 +597,34 @@ require("lazy").setup({
   },
 
   -- bufferline
-  {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-    },
-    opts = {
-      options = {
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        diagnostics_indicator = function(_, _, diag)
-          local icons = require("lazyvim.config").icons.diagnostics
-          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
-            .. (diag.warning and icons.Warn .. diag.warning or "")
-          return vim.trim(ret)
-        end,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   event = "VeryLazy",
+  --   keys = {
+  --     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+  --     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+  --   },
+  --   opts = {
+  --     options = {
+  --       diagnostics = "nvim_lsp",
+  --       always_show_bufferline = false,
+  --       diagnostics_indicator = function(_, _, diag)
+  --         local icons = require("lazyvim.config").icons.diagnostics
+  --         local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+  --           .. (diag.warning and icons.Warn .. diag.warning or "")
+  --         return vim.trim(ret)
+  --       end,
+  --       offsets = {
+  --         {
+  --           filetype = "neo-tree",
+  --           text = "Neo-tree",
+  --           highlight = "Directory",
+  --           text_align = "left",
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   -- statusline
   {
