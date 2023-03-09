@@ -144,6 +144,22 @@ end
 
 require("lazy").setup({
 
+	-- floating file explorer
+  {
+    "is0n/fm-nvim",
+    opts = {
+      ui = {
+        float = {
+          border = "single"
+        }
+      }
+    },
+    config = true
+    -- config = function ()
+    --   vim.cmd("colorscheme tokyonight-moon")
+    -- end
+  },
+
 	-- colorscheme
   {
     "folke/tokyonight.nvim",
