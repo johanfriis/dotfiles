@@ -1,4 +1,6 @@
 return {
   "mickael-menu/zk-nvim",
-  config = true
+  config = function()
+    require("zk").setup()
+  end
 }
