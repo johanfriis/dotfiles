@@ -31,7 +31,7 @@ if not Utils.has("trouble.nvim") then
 end
 
 -- toggle options
-Utils.map("n", "<leader>uf", require("lazyvim.plugins.lsp.format").toggle, { desc = "Toggle format on Save" })
+Utils.map("n", "<leader>uf", require("utils.lsp-format").toggle, { desc = "Toggle format on Save" })
 Utils.map("n", "<leader>us", function()
 	Utils.toggle("spell")
 end, { desc = "Toggle Spelling" })
