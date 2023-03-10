@@ -27,6 +27,12 @@ return {
     return keymaps
   end,
 
+  leap = {
+    { "s", mode = { "n", "x", "o" }, desc = "Leap forward to" },
+    { "S", mode = { "n", "x", "o" }, desc = "Leap backward to" },
+    { "gs", mode = { "n", "x", "o" }, desc = "Leap from windows" },
+  },
+
   luasnip = {
     {
       "<tab>",
