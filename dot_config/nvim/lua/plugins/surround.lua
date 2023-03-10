@@ -1,5 +1,4 @@
 return {
-  -- surround
   {
     "echasnovski/mini.surround",
     keys = function(_, keys)
@@ -21,15 +20,7 @@ return {
       return vim.list_extend(mappings, keys)
     end,
     opts = {
-      mappings = {
-        add = "gza", -- Add surrounding in Normal and Visual modes
-        delete = "gzd", -- Delete surrounding
-        find = "gzf", -- Find surrounding (to the right)
-        find_left = "gzF", -- Find surrounding (to the left)
-        highlight = "gzh", -- Highlight surrounding
-        replace = "gzr", -- Replace surrounding
-        update_n_lines = "gzn", -- Update `n_lines`
-      },
+      mappings = require('config.keys').surround,
     },
     config = function(_, opts)
       -- use gz mappings instead of s to prevent conflict with leap

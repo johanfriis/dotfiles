@@ -26,10 +26,7 @@ return {
         end,
       },
     },
-    keys = {
-      { "<c-space>", desc = "Increment selection" },
-      { "<bs>", desc = "Decrement selection", mode = "x" },
-    },
+    keys = require('config.keys').treesitter,
     ---@type TSConfig
     opts = {
       highlight = { enable = true },
