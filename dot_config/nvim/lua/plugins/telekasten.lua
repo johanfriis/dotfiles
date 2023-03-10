@@ -5,7 +5,7 @@ return {
   },
   dependencies = {
     {
-      "renerocksai/calendar.vim",
+      "renerocksai/calendar-vim",
     }
   }
 }
