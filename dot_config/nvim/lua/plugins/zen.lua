@@ -1,6 +1,10 @@
 return {
   "folke/zen-mode.nvim",
-  config = true,
+  opts = {
+    window = {
+      backdrop = 1,
+    },
+  },
   dependencies = {
     {
       "folke/twilight.nvim",
