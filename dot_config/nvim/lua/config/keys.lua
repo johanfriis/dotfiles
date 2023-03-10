@@ -27,6 +27,10 @@ return {
     return keymaps
   end,
 
+  mason = {
+    { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } 
+  },
+
   gitsigns = function (buffer)
     local gs = package.loaded.gitsigns
 
