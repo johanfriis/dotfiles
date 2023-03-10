@@ -13,6 +13,9 @@ return {
         list = false,
       }
     },
+    plugins = {
+      twilight = { enabled = false },
+    }
   },
   dependencies = {
     {
