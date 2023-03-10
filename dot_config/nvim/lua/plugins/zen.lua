@@ -1,5 +1,5 @@
 return {
-  "folke/zen-mode",
+  "folke/zen-mode.nvim",
   config = true,
   dependencies = {
     {
