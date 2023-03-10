@@ -1,7 +1,5 @@
 vim.g.mapleader = " "
 
-require("config.remap")
-
 vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.number = true -- Print line number
