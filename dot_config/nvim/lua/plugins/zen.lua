@@ -9,7 +9,7 @@ return {
         relativenumber = false,
         cursorline = false,
         cursorcolumn = false,
-        foldcolumn = false,
+        foldcolumn = "0",
         list = false,
       }
     },
