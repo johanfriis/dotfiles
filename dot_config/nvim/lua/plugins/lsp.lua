@@ -15,10 +15,10 @@ return {
 					return Utils.has("nvim-cmp")
 				end,
 			},
-			{ "b0o/SchemaStore.nvim", version = false }, -- last release is way too old}
 		},
 		---@class PluginLspOpts
 		opts = {
+
 			-- options for vim.diagnostic.config()
 			diagnostics = {
 				underline = true,
@@ -26,8 +26,10 @@ return {
 				virtual_text = { spacing = 4, prefix = "●" },
 				severity_sort = true,
 			},
+
 			-- Automatically format on save
 			autoformat = true,
+
 			-- options for vim.lsp.buf.format
 			-- `bufnr` and `filter` is handled by the LazyVim formatter,
 			-- but can be also overridden when specified
@@ -35,38 +37,9 @@ return {
 				formatting_options = nil,
 				timeout_ms = nil,
 			},
+
 			-- LSP Server Settings
-			---@type lspconfig.options
-			servers = {
-				jsonls = {
-					-- lazy-load schemastore when needed
-					on_new_config = function(new_config)
-						new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-						vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-					end,
-					settings = {
-						json = {
-							format = {
-								enable = true,
-							},
-							validate = { enable = true },
-						},
-					},
-				},
-				lua_ls = {
-					-- mason = false, -- set to false if you don't want this server to be installed with mason
-					settings = {
-						Lua = {
-							workspace = {
-								checkThirdParty = false,
-							},
-							completion = {
-								callSnippet = "Replace",
-							},
-						},
-					},
-				},
-			},
+			servers = {},
 
 			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
 			setup = {},
@@ -76,6 +49,7 @@ return {
 		config = function(_, opts)
 			-- setup autoformat
 			require("utils.lsp-format").autoformat = opts.autoformat
+
 			-- setup formatting and keymaps
 			Utils.on_attach(function(client, buffer)
 				require("utils.lsp-format").on_attach(client, buffer)
@@ -110,13 +84,13 @@ return {
 				require("lspconfig")[server].setup(server_opts)
 			end
 
-			-- temp fix for lspconfig rename
-			-- https://github.com/neovim/nvim-lspconfig/pull/2439
-			local mappings = require("mason-lspconfig.mappings.server")
-			if not mappings.lspconfig_to_package.lua_ls then
-				mappings.lspconfig_to_package.lua_ls = "lua-language-server"
-				mappings.package_to_lspconfig["lua-language-server"] = "lua_ls"
-			end
+			-- -- temp fix for lspconfig rename
+			-- -- https://github.com/neovim/nvim-lspconfig/pull/2439
+			-- local mappings = require("mason-lspconfig.mappings.server")
+			-- if not mappings.lspconfig_to_package.lua_ls then
+			-- 	mappings.lspconfig_to_package.lua_ls = "lua-language-server"
+			-- 	mappings.package_to_lspconfig["lua-language-server"] = "lua_ls"
+			-- end
 
 			local mlsp = require("mason-lspconfig")
 			local available = mlsp.get_available_servers()

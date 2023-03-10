@@ -1,16 +1,17 @@
 return {
 	{
 		"williamboman/mason.nvim",
+
 		cmd = "Mason",
 		keys = require("config.keys").mason,
+
 		opts = {
 			ensure_installed = {
-				"stylua",
 				"shfmt",
 				"flake8",
-				"prettierd",
 			},
 		},
+
 		---@param opts MasonSettings | {ensure_installed: string[]}
 		config = function(_, opts)
 			require("mason").setup(opts)
