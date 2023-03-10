@@ -1,3 +1,6 @@
+-- Heavily inspired by:
+-- https://github.com/LazyVim/LazyVim
+
 require('config.options')
 
 -- Load Lazy.nvim
