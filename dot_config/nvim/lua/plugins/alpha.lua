@@ -5,19 +5,7 @@ return {
       event = "VimEnter",
       opts = function()
         local dashboard = require("alpha.themes.dashboard")
-        local logo = [[
-        ___       ___           ___           ___
-       /\__\     /\  \         /\  \         /\  \
-      /:/  /    /::\  \       /::\  \       /::\  \
-     /:/  /    /:/\:\  \     /:/\:\  \     /:/\:\  \
-    /:/  /    /::\~\:\  \   /:/  \:\  \   /:/  \:\  \
-   /:/__/    /:/\:\ \:\__\ /:/__/_\:\__\ /:/__/ \:\__\
-   \:\  \    \:\~\:\ \/__/ \:\  /\ \/__/ \:\  \ /:/  /
-    \:\  \    \:\ \:\__\    \:\ \:\__\    \:\  /:/  /
-     \:\  \    \:\ \/__/     \:\/:/  /     \:\/:/  /
-      \:\__\    \:\__\        \::/  /       \::/  /
-       \/__/     \/__/         \/__/         \/__/
-        ]]
+        local logo = require('config.logo')
 
         dashboard.section.header.val = vim.split(logo, "\n")
         dashboard.section.buttons.val = {
