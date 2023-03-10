@@ -15,7 +15,6 @@ return {
 					nls.builtins.formatting.shfmt,
 					nls.builtins.diagnostics.flake8,
 					nls.builtins.formatting.prettierd,
-					require("typescript.extensions.null-ls.code-actions"),
 				},
 			}
 		end,
