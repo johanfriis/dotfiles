@@ -1,13 +1,34 @@
 vim.g.mapleader = " "
 
-vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.number = true -- Print line number
-vim.opt.relativenumber = true -- Relative line numbers
-vim.opt.scrolloff = 4 -- Lines of context
-vim.opt.shiftwidth = 2 -- Size of an indent
-vim.opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
-vim.opt.smartindent = true -- Insert indents automatically
-vim.opt.tabstop = 2 -- Number of spaces tabs count for
-vim.opt.termguicolors = true -- Enable 24bit colour
-vim.opt.wrap = false -- Disable line wrap
+-- vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
+vim.opt.guicursor = ""
+
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.smartindent = true
+
+vim.opt.wrap = false
+
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes"
+
+vim.opt.swapfile = false
+vim.opt.backup = false                                                         
+-- vim.opt.undofile = true
+-- vim.opt.undodir = vim.fn.expand("~/.local/state/nvim/undodir")
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.textwidth = 80
+vim.opt.colorcolumn = "+1"
+
+vim.opt.updatetime = 50
+
+vim.opt.termguicolors = true

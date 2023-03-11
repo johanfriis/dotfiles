@@ -1,1 +1,1 @@
-require('box')
+require('config')
