@@ -6,6 +6,7 @@ return {
     opts = {
       ensure_installed = {
         "flake8",
+        "marksman"
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
