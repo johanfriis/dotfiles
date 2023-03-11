@@ -2,6 +2,10 @@ return {
   "ixru/nvim-markdown",
   branch = "master",
   dependencies = {
-    "godlygeek/tabular"
+    {
+      "godlygeek/tabular"
+    }
   },
+  config = function()
+  end,
 }
