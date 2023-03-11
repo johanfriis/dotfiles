@@ -1,3 +1,6 @@
+local hexa = "0123456789abcdef"
+local Utils = require('utils')
+
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -7,6 +10,7 @@ return {
       -- table.insert(opts.sources, nls.builtins.formatting.cbfmt)
     end,
   },
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = function(_, opts)
@@ -16,13 +20,29 @@ return {
 		end,
 	},
 
-  {
-    "jakewvincent/mkdnflow.nvim",
-    -- rocks = 'luautf8', -- Ensures optional luautf8 dependency is installed
-    config = function()
-      require('mkdnflow').setup()
-    end
-  },
+  -- {
+  --   "jakewvincent/mkdnflow.nvim",
+  --   -- rocks = 'luautf8', -- Ensures optional luautf8 dependency is installed
+  --   opts = {
+  --     modules = {
+  --       bib = false,
+  --     },
+  --     perspective = {
+  --       priority = "root",
+  --       root_tell = ".git",
+  --       fallback = "current",
+  --     },
+  --     links = {
+  --       style = "wiki",
+  --       conceal = true,
+  --       implicit_extension = "md",
+  --       transform_explicit = function (text)
+  --         return Utils.randomString(6, hexa)
+  --       end,
+  --     }
+  --   },
+  -- },
+
   -- {
   --   "ixru/nvim-markdown",
   --   branch = "master",
