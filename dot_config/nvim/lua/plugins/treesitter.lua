@@ -43,8 +43,6 @@ return {
         "javascript",
         "lua",
         "luap",
-        "markdown",
-        "markdown_inline",
         "python",
         "query",
         "regex",
