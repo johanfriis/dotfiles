@@ -15,7 +15,7 @@ return {
           layout_strategy = 'vertical',
           layout_config = {
             anchor = 'N',
-            -- height = { 0.9, max = 8 },
+            width = 0.4,
             height = 0.3,
             prompt_position = 'top',
             preview_height = 0,
