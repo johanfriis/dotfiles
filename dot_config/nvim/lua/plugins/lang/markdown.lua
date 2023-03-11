@@ -1,5 +1,5 @@
 return {
-  "preservim/vim-markdown",
+  "ixru/nvim-markdown",
   branch = "master",
   dependencies = {
     "godlygeek/tabular"
