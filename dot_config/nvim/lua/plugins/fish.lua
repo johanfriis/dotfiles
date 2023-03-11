@@ -4,7 +4,7 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
       -- table.insert(opts.sources, nls.builtins.formatting.fish_indent)
-      table.insert(opts.sources, nls.builtins.diagnostics.fish)
+      -- table.insert(opts.sources, nls.builtins.diagnostics.fish)
     end,
   },
 }
