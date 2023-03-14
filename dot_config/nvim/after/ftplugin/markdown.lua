@@ -1,6 +1,8 @@
 local lsp = require('lsp-zero')
 local cmp = require('cmp')
 
+vim.opt.shiftwidth = 2
+
 cmp.setup.buffer({
   sources = vim.tbl_filter(function(source)
     if source.name ~= 'buffer' and source.name ~= 'luasnip' then
