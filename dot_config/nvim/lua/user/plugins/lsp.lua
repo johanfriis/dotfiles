@@ -47,7 +47,6 @@ return {
 				"tsserver",
 				"eslint",
 				"lua_ls",
-				"prettierd",
 			})
 
 			local supertab = function(fallback)
