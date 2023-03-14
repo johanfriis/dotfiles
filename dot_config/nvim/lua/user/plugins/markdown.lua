@@ -6,6 +6,9 @@ return {
   {
     'jakewvincent/mkdnflow.nvim',
     opts = {
+      mappings = {
+        MkdnToggleToDo = { { 'n', 'v' }, '<C-Enter>' },
+      },
       modules = {
         bib = false,
       },
