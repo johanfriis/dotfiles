@@ -1,4 +1,3 @@
-
 local header = function()
   local hour = tonumber(vim.fn.strftime('%H'))
   -- [04:00, 12:00) - morning, [12:00, 20:00) - day, [20:00, 04:00) - evening
@@ -21,7 +20,7 @@ return {
           function()
             return {
               {
-                action = 'Telescope find_files',
+                action = 'Telescope smart_open cwd_only = true',
                 name = 'Files',
                 section = 'Actions',
               },

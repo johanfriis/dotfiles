@@ -59,7 +59,18 @@ which.register({
 -- ----------------------------
 -- Frecency File Finder
 -- ----------------------------
-map('n', '<leader>f', [[:Telescope smart_open<cr>]], { desc = 'Find File' })
+map(
+  'n',
+  '<leader>f',
+  [[:Telescope smart_open cwd_only=true<cr>]],
+  { desc = 'Find Files' }
+)
+map(
+  'n',
+  '<leader>F',
+  [[:Telescope smart_open<cr>]],
+  { desc = 'Find All Files' }
+)
 
 -- ----------------------------
 -- +toggle
