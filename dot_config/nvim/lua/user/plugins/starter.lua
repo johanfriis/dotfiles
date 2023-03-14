@@ -15,6 +15,7 @@ return {
     config = function()
       local starter = require('mini.starter')
       starter.setup({
+        header = header,
         items = {
           starter.sections.recent_files(4, true),
           function()
@@ -53,6 +54,7 @@ return {
           end,
         },
         footer = '',
+        query_updaters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.',
       })
     end,
   },
