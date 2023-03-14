@@ -22,7 +22,7 @@ vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand('~/.local/state/nvim/undodir')
 
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.textwidth = 80
