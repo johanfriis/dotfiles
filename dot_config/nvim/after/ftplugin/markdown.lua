@@ -3,9 +3,10 @@ local cmp = require('cmp')
 
 cmp.setup.buffer({
   sources = vim.tbl_filter(function(source)
-    if source.name ~= 'buffer' then
+    if source.name ~= 'buffer' and source.name ~= 'luasnip' then
       return source
     end
+    return false
   end, lsp.defaults.cmp_sources()),
 })
 
