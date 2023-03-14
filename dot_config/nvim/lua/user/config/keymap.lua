@@ -81,6 +81,7 @@ which.register({
     e = { ':Neotree toggle<cr>', 'Neotree' },
     g = { ':Glow<cr>', 'Glow' },
     f = { [[:lua require('user.utils').toggle_autoformat()<cr>]], 'Autoformat' },
+    u = { ':UndotreeToggle<cr>', 'Undo Tree' },
     z = { ':ZenMode<cr>', 'Zen Mode' },
     l = {
       [[:lua require('user.utils').toggle_indent()<cr>]],

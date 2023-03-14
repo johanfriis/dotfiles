@@ -4,7 +4,14 @@ return {
     enabled = true,
     opts = {
       colorcolumn = '81',
-      disabled_filetypes = { 'help', 'starter', 'lazy', 'mason', 'neotree' },
+      disabled_filetypes = {
+        'help',
+        'starter',
+        'lazy',
+        'mason',
+        'neotree',
+        'markdown',
+      },
       scope = 'window',
     },
   },
