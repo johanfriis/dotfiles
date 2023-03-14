@@ -1,11 +1,13 @@
 local lsp = require('lsp-zero')
 local cmp = require('cmp')
 
-cmp.setup.buffer(vim.tbl_filter(function(source)
-  if source.name ~= 'buffer' then
-    return source
-  end
-end, lsp.defaults.cmp_sources()))
+cmp.setup.buffer({
+  sources = vim.tbl_filter(function(source)
+    if source.name ~= 'buffer' then
+      return source
+    end
+  end, lsp.defaults.cmp_sources()),
+})
 
 if require('zk.util').notebook_root(vim.fn.expand('%:p')) ~= nil then
   local function map(...)
