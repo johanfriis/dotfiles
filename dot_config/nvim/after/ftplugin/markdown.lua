@@ -16,6 +16,8 @@ if require('zk.util').notebook_root(vim.fn.expand('%:p')) ~= nil then
   end
   local opts = { noremap = true, silent = false }
 
+  map('n', '<leader>zf', ':ZkNotes<cr>', { desc = 'Find Note' })
+
   -- Create a new note after asking for its title.
   -- This overrides the global `<leader>zn` mapping to create the note in the same directory as the current buffer.
   map(
