@@ -49,27 +49,6 @@ return {
         'lua_ls',
       })
 
-      -- local supertab = function(fallback)
-      --   if cmp.visible() then
-      --     cmp.confirm({ select = true })
-      --   elseif luasnip.expand_or_locally_jumpable() then
-      --     luasnip.expand_or_jump()
-      --   elseif Utils.has_words_before() then
-      --     cmp.complete()
-      --   else
-      --     fallback()
-      --   end
-      -- end
-      --
-      -- local cmp_select = { behavior = cmp.SelectBehavior.Select }
-      -- lsp.setup_nvim_cmp({
-      --   mapping = lsp.defaults.cmp_mappings({
-      --     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-      --     ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-      --     ["<Tab>"] = cmp.mapping(supertab),
-      --   }),
-      -- })
-
       -- setup lua for working in nvim
       lsp.nvim_workspace({
         library = vim.api.nvim_get_runtime_file('', true),
