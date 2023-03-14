@@ -7,8 +7,8 @@ return {
     'jakewvincent/mkdnflow.nvim',
     opts = {
       mappings = {
-        MkdnTab = { { 'n', 'v' }, '<Tab>' },
-        MkdnSTab = { { 'n', 'v' }, '<S-Tab>' },
+        -- MkdnTab = { { 'n', 'v' }, '<Tab>' },
+        -- MkdnSTab = { { 'n', 'v' }, '<S-Tab>' },
         MkdnToggleToDo = { { 'n', 'v' }, '<C-Enter>' },
         MkdnFoldSection = false,
         MkdnUnfoldSection = false,

@@ -2,6 +2,10 @@ local lsp = require('lsp-zero')
 local cmp = require('cmp')
 
 vim.opt.shiftwidth = 2
+vim.api.nvim_create_autocmd(
+  'FileType',
+  { pattern = 'markdown', command = 'set autowriteall' }
+)
 
 cmp.setup.buffer({
   sources = vim.tbl_filter(function(source)
