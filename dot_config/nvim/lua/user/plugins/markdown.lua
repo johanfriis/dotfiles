@@ -8,6 +8,8 @@ return {
     opts = {
       mappings = {
         MkdnToggleToDo = { { 'n', 'v' }, '<C-Enter>' },
+        MkdnFoldSection = false,
+        MkdnUnfoldSection = false,
       },
       modules = {
         bib = false,
