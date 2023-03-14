@@ -1,3 +1,8 @@
+local l = require('lsp-zero')
+local c = require('cmp')
+
+print(l.defaults.cmp_sources())
+
 if require('zk.util').notebook_root(vim.fn.expand('%:p')) ~= nil then
   local function map(...)
     vim.api.nvim_buf_set_keymap(0, ...)
