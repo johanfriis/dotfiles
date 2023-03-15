@@ -81,6 +81,7 @@ which.register({
     e = { ':Neotree toggle<cr>', 'Neotree' },
     g = { ':Glow<cr>', 'Glow' },
     f = { [[:lua require('user.utils').toggle_autoformat()<cr>]], 'Autoformat' },
+    h = { ':nohl<cr>', 'Highlights' },
     u = { ':UndotreeToggle<cr>', 'Undo Tree' },
     z = { ':ZenMode<cr>', 'Zen Mode' },
     l = {
@@ -192,3 +193,20 @@ lsp.on_attach(function(_, bn)
     { buffer = bn, desc = 'Signature Help' }
   )
 end)
+
+vim.cmd([[
+function! EscapeYankedText()
+  let word = @@
+  return substitute(escape(word, '\/.*$^~[]'), "\n", '\\n', "g")
+endfunction
+]])
+
+-- replace word, repeatable
+map(
+  'n',
+  '<leader>cw',
+  'yiw:let @/=EscapeYankedText()<CR>cgn',
+  { silent = true }
+)
+-- replace visual selection, repeatable
+map('v', '<leader>cv', 'y:let @/=EscapeYankedText()<CR>cgn', { silent = true })
