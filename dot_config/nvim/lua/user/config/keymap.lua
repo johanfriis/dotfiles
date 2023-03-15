@@ -121,6 +121,8 @@ which.register({
   ['<leader>b'] = {
     name = '+buffer',
     d = { '<cmd>bp|bd#<cr>', 'Delete Buffer' },
+    n = { '<cmd>bn<cr>', 'Next Buffer' },
+    p = { '<cmd>bp<cr>', 'Previous Buffer' },
     L = { '<cmd>Luapad<cr>', 'New Luapad' },
   },
 })
