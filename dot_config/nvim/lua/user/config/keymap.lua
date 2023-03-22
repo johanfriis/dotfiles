@@ -45,6 +45,8 @@ end
 
 vim.keymap.set('n', '§', ':YABSOpen<cr>')
 
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
 -- ----------------------------
 -- Which Key Mappings
 -- ----------------------------
@@ -82,12 +84,13 @@ which.register({
     g = { ':Glow<cr>', 'Glow' },
     f = { [[:lua require('user.utils').toggle_autoformat()<cr>]], 'Autoformat' },
     h = { ':nohl<cr>', 'Highlights' },
-    u = { ':UndotreeToggle<cr>', 'Undo Tree' },
-    z = { ':ZenMode<cr>', 'Zen Mode' },
     l = {
       [[:lua require('user.utils').toggle_indent()<cr>]],
       'Toggle Indent Lines',
     },
+    t = { ':FloatermToggle<cr>', 'Floaterm' },
+    u = { ':UndotreeToggle<cr>', 'Undo Tree' },
+    z = { ':ZenMode<cr>', 'Zen Mode' },
   },
 })
 
