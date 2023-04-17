@@ -13,9 +13,9 @@ pager = "bat"
   command = "nvim"
   apply = true
 
-{{- $email := promptString "email" -}}
-{{- $usern := promptString "user" -}}
+{{ $email := promptString "email" -}}
+{{- $user := promptString "user" -}}
 [data]
   email = "{{ $email }}"
-  user = "{{ $usern }}"
+  user = "{{ $user }}"
 
