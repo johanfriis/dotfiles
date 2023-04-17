@@ -14,8 +14,8 @@ pager = "bat"
   apply = true
 
 {{ $email := promptString "email" -}}
-{{- $user := promptString "user" -}}
+{{- $name := promptString "name" -}}
 [data]
   email = "{{ $email }}"
-  user = "{{ $user }}"
+  name = "{{ $name }}"
 
