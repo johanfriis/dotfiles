@@ -1,0 +1,13 @@
+[user]
+	email = "{{ .email }}"
+	name = "{{ .name }}"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+	rebase-reset-author = rebase -r --root --exec \"git commit --amend --no-edit --reset-author\"
+	st = status
+	co = checkout
+	cm = commit -m

@@ -1,0 +1,21 @@
+verbose = true
+pager = "bat"
+
+[git]
+  autoCommit = true
+  autoPush = true
+
+[merge]
+  command = "nvim"
+  args = ["-d", "{{ "{{ .Destination }}" }}", "{{"{{ .Source }}" }}"]
+
+[edit]
+  command = "nvim"
+  apply = true
+
+{{- $email := promptString "email" -}}
+{{- $usern := promptString "user" -}}
+[data]
+  email = "{{ $email }}"
+  user = "{{ $usern }}"
+
