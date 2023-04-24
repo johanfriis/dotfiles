@@ -16,6 +16,11 @@
 ;; hide warnings when natively compiling packages
 (setq native-comp-async-report-warnings-errors nil)
 
+;; set a custom file for customize settings
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; So we can detect this having been loaded
 (provide 'early-init)
 
