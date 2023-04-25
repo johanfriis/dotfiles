@@ -1,5 +1,8 @@
 (require 'xdg)
 
+;; add modules directory to load path
+(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory)):
+
 ;; dont enable default package handling
 (setq package-enable-at-startup nil)
 
@@ -20,6 +23,8 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(require 'config-layout) ;; load layout
 
 ;; So we can detect this having been loaded
 (provide 'early-init)

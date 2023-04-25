@@ -1,16 +1,16 @@
-(require 'config-elpaca)
+;(require 'config-elpaca)
 
+;(require 'config-nano-modeline)
 
 ;(elpaca (nano-theme :host github :repo "rougier/nano-theme")
 ;  :defer t
 ;  :config
-;  (load-theme 'nano-light t)
-;  (nano-mode))
+;  (load-theme 'nano-light t))
 
-(elpaca (nano-modeline :host github :repo "rougier/nano-modeline")
-  :config
-  (require 'nano-modeline)
-  (nano-modeline-mode))
+;(elpaca (nano-modeline :host github :repo "rougier/nano-modeline")
+;  :config
+;  (require 'nano-modeline)
+;  (nano-modeline-mode))
 
 ;(elpaca (mini-frame) :demand t)
 ;(elpaca (nano-minibuffer :host github :repo "rougier/nano-minibuffer")
