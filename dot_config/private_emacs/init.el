@@ -8,9 +8,5 @@
 (require 'config-nano-modeline)
 (require 'config-defaults)        ;; load default settings
 (require 'config-session)         ;; load session handling
+(require 'config-evil)
 ;(require 'config-nano)            ;; load some nano modules
-
-(use-package evil
-  :demand t
-  :init
-  (evil-mode t))

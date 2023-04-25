@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (require 'config-elpaca)
 
 (setq no-littering-etc-directory emacs-data-directory)
