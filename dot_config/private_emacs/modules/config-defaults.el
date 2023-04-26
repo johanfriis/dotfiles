@@ -1,29 +1,7 @@
 ;; Copied from https://github.com/rougier/nano-emacs/blob/master/nano-defaults.el
 
-;; No startup  screen
-(setq inhibit-startup-screen t)
-
-;; No startup message
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message t)
-
-;; No message in scratch buffer
-(setq initial-scratch-message nil)
-
-;; Initial buffer
-(setq initial-buffer-choice nil)
-
-;; No frame title
-(setq frame-title-format nil)
-
-;; No file dialog
-(setq use-file-dialog nil)
-
-;; No dialog box
-(setq use-dialog-box nil)
-
-;; No popup windows
-(setq pop-up-windows nil)
+;; No bell
+(setq ring-bell-function 'ignore)
 
 ;; No empty line indicators
 (setq indicate-empty-lines nil)
@@ -49,6 +27,10 @@
 ;; Fill column at 80
 (setq fill-column 80)
 
+;; Line numbers in programming modes
+(setq display-line-numbers-type 'relative)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+
 ;; No confirmation for visiting non-existent files
 (setq confirm-nonexistent-file-or-buffer nil)
 
@@ -56,34 +38,18 @@
 ;; gnu.org/software/emacs/manual/html_node/emacs/Completion-Styles.html
 (setq completion-styles '(basic substring))
 
-;; Use RET to open org-mode links, including those in quick-help.org
-(setq org-return-follows-link t)
-
 ;; Mouse active in terminal
 (unless (display-graphic-p)
   (xterm-mouse-mode 1)
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
-;; No scroll bars
-(if (fboundp 'scroll-bar-mode) (set-scroll-bar-mode nil))
-
-;; No toolbar
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-
-;; No menu bar
-(if (display-graphic-p)
-    (menu-bar-mode t) ;; When nil, focus problem on OSX
-  (menu-bar-mode -1))
-
-;; Mac specific
+;; Mac specific, Option key is Meta
 (when (eq system-type 'darwin)
-  (setq ns-use-native-fullscreen t
-        mac-option-key-is-meta nil
-        mac-command-key-is-meta t
-        mac-command-modifier 'meta
-        mac-option-modifier nil
-        mac-use-title-bar nil))
+  (setq mac-option-key-is-meta t
+        mac-command-key-is-meta nil
+        mac-command-modifier 'super
+        mac-option-modifier 'meta))
 
 ;; Make sure clipboard works properly in tty mode on OSX
 (defun copy-from-osx ()
@@ -107,12 +73,12 @@
 ;; Tab.space equivalence
 (setq-default tab-width 2)
 
+;; Don't wrap lines
+(set-default 'truncate-lines t)
+
 ;; Size of temporary buffers
 (temp-buffer-resize-mode)
 (setq temp-buffer-max-height 8)
-
-;; Minimum window height
-(setq window-min-height 1)
 
 ;; Buffer encoding
 (prefer-coding-system       'utf-8)
@@ -133,11 +99,5 @@
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
-
-
-
-
-
-
 
 (provide 'config-defaults)

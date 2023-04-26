@@ -508,6 +508,7 @@ When return value is \"0\", then the section is hidden"
                          (propertize (format " -%s- " (nano-modeline-tab-number)) 'face face-secondary)))))
 	     (right-len (length (format-mode-line right))))
     (concat
+     header-line-indent
      left 
      (propertize " "  'face face-secondary
                  'display `(space :align-to (- right

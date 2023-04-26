@@ -9,7 +9,9 @@
 (elpaca (nano-theme :host github :repo "rougier/nano-theme")
   :defer t
   :config
-  (load-theme 'nano-dark t))
+  (if (my/environment-dark-mode-p)
+      (load-theme 'nano-dark t)
+      (load-theme 'nano-light t)))
 
 (defun my/apply-theme (appearance)
   "Load theme, taking current system APPEARANCE into consideration."
