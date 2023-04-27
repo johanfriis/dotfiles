@@ -13,22 +13,16 @@
 ;(require 'config-nano)            ;; load some nano modules
 
 
-(defun emacs-lisp-goto-definition ()
-  (interactive)
-  (find-function (function-called-at-point)))
-
-(defun replace-last-sexp ()
-  (interactive)
-  (let ((value (eval (elisp--preceding-sexp))))
-    (kill-sexp -1)
-    (insert (format "%S" value))))
-
-(use-package
- elisp-autofmt
- :commands (elisp-autofmt-mode elisp-autofmt-buffer)
- :config (setq elisp-autofmt-on-save-p 'always)
- :hook (emacs-lisp-mode . elisp-autofmt-mode))
-
+;(defun emacs-lisp-goto-definition ()
+;  (interactive)
+;  (find-function (function-called-at-point)))
+;
+;(defun replace-last-sexp ()
+;  (interactive)
+;  (let ((value (eval (elisp--preceding-sexp))))
+;    (kill-sexp -1)
+;    (insert (format "%S" value))))
+;
 ;(use-package auto-compile
 ;  :init
 ;  (my/onetime-setup auto-compile
@@ -38,7 +32,7 @@
 ;  :config
 ;  (setq auto-compile-display-buffer nil
 ;        auto-compile-mode-line-counter t))
-
+;
 ;(use-package lisp-mode
 ;  :ensure nil
 ;  :config
