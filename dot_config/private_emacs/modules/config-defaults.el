@@ -46,10 +46,11 @@
 
 ;; Mac specific, Option key is Meta
 (when (eq system-type 'darwin)
-  (setq mac-option-key-is-meta t
-        mac-command-key-is-meta nil
-        mac-command-modifier 'super
-        mac-option-modifier 'meta))
+  (setq
+   mac-option-key-is-meta t
+   mac-command-key-is-meta nil
+   mac-command-modifier 'super
+   mac-option-modifier 'meta))
 
 ;; Make sure clipboard works properly in tty mode on OSX
 (defun copy-from-osx ()
@@ -59,10 +60,9 @@
     (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
       (process-send-string proc text)
       (process-send-eof proc))))
-(when (and (not (display-graphic-p))
-           (eq system-type 'darwin))
-    (setq interprogram-cut-function 'paste-to-osx)
-    (setq interprogram-paste-function 'copy-from-osx))
+(when (and (not (display-graphic-p)) (eq system-type 'darwin))
+  (setq interprogram-cut-function 'paste-to-osx)
+  (setq interprogram-paste-function 'copy-from-osx))
 
 ;; y/n for  answering yes/no questions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -81,18 +81,19 @@
 (setq temp-buffer-max-height 8)
 
 ;; Buffer encoding
-(prefer-coding-system       'utf-8)
+(prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-(set-language-environment   'utf-8)
+(set-language-environment 'utf-8)
 
 ;; Unique buffer names
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse
-      uniquify-separator " • "
-      uniquify-after-kill-buffer-p t
-      uniquify-ignore-buffers-re "^\\*")
+(setq
+ uniquify-buffer-name-style 'reverse
+ uniquify-separator " • "
+ uniquify-after-kill-buffer-p t
+ uniquify-ignore-buffers-re "^\\*")
 
 ;; Revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)

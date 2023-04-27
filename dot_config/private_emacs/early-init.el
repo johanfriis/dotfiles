@@ -1,23 +1,31 @@
 (require 'xdg)
 
 ;; add modules directory to load path
-(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory)):
+(add-to-list
+ 'load-path (expand-file-name "modules" user-emacs-directory))
+:
 
 ;; dont enable default package handling
 (setq package-enable-at-startup nil)
 
 ;; set base directories
-(defvar emacs-config-directory (expand-file-name "emacs/" (xdg-config-home)))
-(defvar emacs-cache-directory (expand-file-name "emacs/" (xdg-cache-home)))
-(defvar emacs-data-directory (expand-file-name "emacs/" (xdg-data-home)))
-(defvar emacs-state-directory (expand-file-name "emacs/" (xdg-state-home)))
+(defvar emacs-config-directory
+  (expand-file-name "emacs/" (xdg-config-home)))
+(defvar emacs-cache-directory
+  (expand-file-name "emacs/" (xdg-cache-home)))
+(defvar emacs-data-directory
+  (expand-file-name "emacs/" (xdg-data-home)))
+(defvar emacs-state-directory
+  (expand-file-name "emacs/" (xdg-state-home)))
 
 ;; Set eln-cache dir
 (when (boundp 'native-comp-eln-load-path)
-  (startup-redirect-eln-cache (expand-file-name "eln-cache/" emacs-cache-directory)))
+  (startup-redirect-eln-cache
+   (expand-file-name "eln-cache/" emacs-cache-directory)))
 
-;; hide warnings when natively compiling packages
-(setq native-comp-async-report-warnings-errors nil)
+(when (native-comp-available-p)
+  (setq native-comp-async-report-warnings-errors 'silent) ; emacs28 with native compilation
+  (setq native-compile-prune-cache t)) ; Emacs 29
 
 ;; set a custom file for customize settings
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -36,7 +44,11 @@
 (defun my/environment-dark-mode-p ()
   "Invoke applescript using Emacs using external shell command;
 this is less efficient, but works for non-GUI Emacs."
-  (string-equal "true" (string-trim (shell-command-to-string "osascript -e 'tell application \"System Events\" to tell appearance preferences to return dark mode'"))))
+  (string-equal
+   "true"
+   (string-trim
+    (shell-command-to-string
+     "osascript -e 'tell application \"System Events\" to tell appearance preferences to return dark mode'"))))
 
 (defun my/emacs-re-enable-frame-theme (_frame)
   "Re-enable active theme, if any, upon FRAME creation.
@@ -55,11 +67,10 @@ New frames are instructed to call `prot-emacs-re-enable-frame-theme'."
   (when (my/environment-dark-mode-p)
     (setq mode-line-format nil)
     (set-face-attribute 'default nil :background "#000000")
-    (add-hook 'after-make-frame-functions #'my/emacs-re-enable-frame-theme)))
+    (add-hook
+     'after-make-frame-functions #'my/emacs-re-enable-frame-theme)))
 
 (my/emacs-avoid-initial-flash-of-light)
 
 ;; So we can detect this having been loaded
 (provide 'early-init)
-
-

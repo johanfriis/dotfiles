@@ -1,60 +1,65 @@
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
 ;;(setq debug-on-error t)
 
-(require 'config-benchmarking) ;; Measure startup time
-(require 'config-elpaca) ;; load package manager
+(require 'config-benchmarking)
+(require 'config-elpaca)
 (require 'config-no-littering)
-(require 'config-theme) ;; load current theme
+(require 'config-theme)
 (require 'config-nano-modeline)
-(require 'config-defaults) ;; load default settings
-(require 'config-session) ;; load session handling
+(require 'config-defaults)
+(require 'config-session)
 (require 'config-evil)
 (require 'config-org)
-;(require 'config-nano)            ;; load some nano modules
+(require 'config-lisp)
 
+;; Ignore case in completion
+(setq completion-ignore-case t)
 
-;(defun emacs-lisp-goto-definition ()
-;  (interactive)
-;  (find-function (function-called-at-point)))
-;
-;(defun replace-last-sexp ()
-;  (interactive)
-;  (let ((value (eval (elisp--preceding-sexp))))
-;    (kill-sexp -1)
-;    (insert (format "%S" value))))
-;
-;(use-package auto-compile
-;  :init
-;  (my/onetime-setup auto-compile
-;    :hook 'before-save-hook
-;    (auto-compile-on-save-mode +1))
-;
-;  :config
-;  (setq auto-compile-display-buffer nil
-;        auto-compile-mode-line-counter t))
-;
-;(use-package lisp-mode
-;  :ensure nil
-;  :config
-;  (use-package smartparens
-;    :config
-;    (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil)
-;    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p)))
-;
-;  (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
-;  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-;  (add-hook
-;   'emacs-lisp-mode-hook
-;   (my/defun-as-value my/diminish-elisp-mode ()
-;     (setq mode-name (if (display-graphic-p) "λ" "EL"))))
-;
-;  (define-key emacs-lisp-mode-map (kbd "C-c e") #'replace-last-sexp)
-;  (define-key emacs-lisp-mode-map (kbd "M-.") #'emacs-lisp-goto-definition)
-;  (define-key emacs-lisp-mode-map (kbd "M-,") #'evil-jump-backward)
-;
-;  (with-eval-after-load 'evil
-;    (eval-when-compile
-;      (with-demoted-errors "Load error: %s"
-;        (require 'evil)))
-;    (evil-define-key 'normal emacs-lisp-mode-map "gd"
-;      #'emacs-lisp-goto-definition)))
+;; Sort directories before files
+(defun sort-directories-first (files)
+  (setq files (vertico-sort-history-length-alpha files))
+  (nconc
+   (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
+   (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
+
+;; completion UI (vertical list in minibuffer)
+(use-package
+ vertico
+ :elpaca
+ (vertico
+  :type git
+  :host github
+  :repo "minad/vertico"
+  :files (:defaults "extensions/*"))
+ :init (vertico-mode) (setq vertico-resize t))
+
+;; allows different completion UI configuration
+(use-package
+ vertico-multiform
+ :elpaca nil
+ :after vertico
+ :init (vertico-multiform-mode)
+ (setq
+  vertico-multiform-commands '((execute-extended-command flat))
+  vertico-multiform-categories '((file (vertico-sort-function . sort-directories-first)))))
+
+;; `completion STYLE` with flexible candidate filtering
+;; filter with space-separated components and match components in any order
+;; filter means how a input string is matched against candidates
+(use-package
+ orderless
+ :demand
+ :config
+ ;; partial completion for files to allows path expansion
+ (setq
+  completion-styles '(orderless)
+  completion-category-defaults nil
+  completion-ignore-case t ; ignore case (useful in c++ for instance)
+  read-file-name-completion-ignore-case t
+  completion-category-overrides
+  '((file (styles . (partial-completion)))
+    ;; navigate files with initials
+    (minibuffer (initials)))))
+
+;; Enable rich annotations using the Marginalia package
+(use-package marginalia :init (marginalia-mode))
