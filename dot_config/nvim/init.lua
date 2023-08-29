@@ -148,10 +148,16 @@ require("lazy").setup({
 
 	{
 		-- Theme inspired by Atom
-		"navarasu/onedark.nvim",
+		"rose-pine/neovim",
+    name = "rose-pine",
 		priority = 1000,
+    opts = function ()
+      require("rose-pine").setup({
+        variant = "auto",
+      })
+    end,
 		config = function()
-			vim.cmd.colorscheme("onedark")
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
 
