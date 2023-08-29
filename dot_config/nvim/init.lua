@@ -48,7 +48,7 @@ vim.g.maplocalleader = " "
 --    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
+  vim.fn.system({
 		"git",
 		"clone",
 		"--filter=blob:none",
