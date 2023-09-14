@@ -26,7 +26,7 @@ end
 config.color_scheme = scheme_for_appearance(get_appearance())
 
 -- // FONT
-
+-- 
 config.font = wezterm.font("CaskaydiaCove Nerd Font", {
     weight = "Regular",
     stretch = "Normal",
@@ -34,6 +34,7 @@ config.font = wezterm.font("CaskaydiaCove Nerd Font", {
     italic = true,
 })
 config.font_size = 13
+
 
 -- // UI
 config.enable_tab_bar = false
