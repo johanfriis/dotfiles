@@ -161,7 +161,7 @@ require("lazy").setup({
 		priority = 1000,
     opts = function ()
       require("rose-pine").setup({
-        variant = "auto",
+        variant = "moon",
       })
     end,
 		config = function()
@@ -175,8 +175,8 @@ require("lazy").setup({
 		-- See `:help lualine.txt`
 		opts = {
 			options = {
-				icons_enabled = false,
-				theme = "solarized_light",
+				icons_enabled = true,
+				theme = "palenight",
 				component_separators = "|",
 				section_separators = "",
 			},
@@ -225,6 +225,13 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
+    opts = {
+      auto_install = true,
+      highlight = { enable = true },
+      ensure_installed = {
+        "elixir", "heex", "eex",
+      }
+    },
 		build = ":TSUpdate",
 	},
 
@@ -240,12 +247,15 @@ require("lazy").setup({
 	--    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
 	--
 	--    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-	-- { import = 'custom.plugins' },
+	{ import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
+
+-- Automatically change directory to current file
+vim.o.autochdir = true
 
 -- Set highlight on search
 vim.o.hlsearch = false
