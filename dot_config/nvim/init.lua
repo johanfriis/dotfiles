@@ -482,10 +482,7 @@ local servers = {
 	-- tsserver = {},
 	-- html = { filetypes = { 'html', 'twig', 'hbs'} },
 
-  nextls = {
-  },
-  elixirls = {
-  },
+  elixirls = {},
 	lua_ls = {
 		Lua = {
       diagnostics = { globals = { "vim" } },
