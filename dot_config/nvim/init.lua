@@ -98,6 +98,7 @@ require("lazy").setup({
 
 			-- Additional lua configuration, makes nvim stuff amazing!
 			"folke/neodev.nvim",
+      "onsails/lspkind.nvim",
 		},
 	},
 
@@ -155,7 +156,6 @@ require("lazy").setup({
 	},
 
 	{
-		-- Theme inspired by Atom
 		"rose-pine/neovim",
     name = "rose-pine",
 		priority = 1000,
@@ -180,6 +180,9 @@ require("lazy").setup({
 				component_separators = "|",
 				section_separators = "",
 			},
+      extensions = {
+        "neo-tree",
+      },
 		},
 	},
 
@@ -300,6 +303,10 @@ vim.o.termguicolors = true
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
+-- Add sane indentiation commands
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+
 -- Remap for dealing with word wrap
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -321,8 +328,12 @@ require("telescope").setup({
 	defaults = {
 		mappings = {
 			i = {
+				["<esc>"] = "close",
 				["<C-u>"] = false,
 				["<C-d>"] = false,
+			},
+			n = {
+				["<esc>"] = "close",
 			},
 		},
 	},
@@ -332,27 +343,47 @@ require("telescope").setup({
 pcall(require("telescope").load_extension, "fzf")
 
 -- See `:help telescope.builtin`
-vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "§", function()
+  require("telescope.builtin").buffers(require("telescope.themes").get_dropdown({
+    initial_mode = "normal",
+		winblend = 0,
+		previewer = false,
+	}))
+end, { desc = "Find existing buffers" })
+
+vim.keymap.set("n", "<tab>", function()
+  local builtin = require("telescope.builtin")
+
+  vim.fn.system("git rev-parse --is-inside-work-tree")
+  if vim.v.shell_error == 0 then
+    builtin.git_files()
+  else
+    builtin.find_files()
+  end
+end, { desc = "[F]ind Git Files with Fallback" })
+
+vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
+vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+
 vim.keymap.set("n", "<leader>/", function()
 	-- You can pass additional configuration to telescope to change theme, layout, etc.
 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 		winblend = 10,
 		previewer = false,
 	}))
-end, { desc = "[/] Fuzzily search in current buffer" })
+end, { desc = "Fuzzily search in current buffer" })
 
-vim.keymap.set("n", "<leader>gf", require("telescope.builtin").git_files, { desc = "Search [G]it [F]iles" })
-vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
-vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "[S]earch [H]elp" })
+vim.keymap.set("n", "<leader>sr", require("telescope.builtin").oldfiles, { desc = "[S]earch [R]ecently opened files" })
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
-vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
-vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+vim.keymap.set("n", "<leader>?", require("telescope.builtin").help_tags, { desc = "Search Help" })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
+  sync_install = false,
+  ignore_install = {},
+  modules = {},
 	ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "typescript", "vimdoc", "vim" },
 
 	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -418,7 +449,7 @@ require("nvim-treesitter.configs").setup({
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- [[ Configure LSP ]]
@@ -530,40 +561,50 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+  formatting = {
+    format = require('lspkind').cmp_format({
+      mode = 'symbol',
+      maxwidth = 50,
+      ellipsis_char = '…',
+      symbol_map = { Copilot = "" },
+    }),
+  },
 	mapping = cmp.mapping.preset.insert({
+		["<C-i>"] = cmp.mapping.complete({}),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete({}),
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
+		["<tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.locally_jumpable(-1) then
-				luasnip.jump(-1)
+        cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+          select = true,
+        })
 			else
 				fallback()
 			end
 		end, { "i", "s" }),
 	}),
 	sources = {
+		{ name = "copilot" },
 		{ name = "nvim_lsp" },
+		{ name = "buffer" },
 		{ name = "luasnip" },
 	},
+  enabled = function()
+    local in_prompt = vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt'
+    if in_prompt then  -- this will disable cmp in the Telescope window (taken from the default config)
+      return false
+    end
+    local context = require("cmp.config.context")
+    -- disable completions in comments
+    return not(context.in_treesitter_capture("comment") == true or context.in_syntax_group("Comment"))
+  end,
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
