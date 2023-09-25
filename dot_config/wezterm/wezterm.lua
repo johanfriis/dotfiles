@@ -23,7 +23,22 @@ local function scheme_for_appearance(appearance)
   end
 end
 
+local function colors_for_appearance(appearance)
+  if appearance:find 'Dark' then
+    return {
+      selection_fg = '#e0def4',
+      selection_bg = '#44415a'
+    }
+  else
+    return {
+      selection_fg = '#575279',
+      selection_bg = '#cecacd'
+    }
+  end
+end
+
 config.color_scheme = scheme_for_appearance(get_appearance())
+config.colors = colors_for_appearance(get_appearance())
 
 -- // FONT
 -- 
