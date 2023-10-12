@@ -1,0 +1,9 @@
+modal = true
+quit_on_last_cancel = true
+
+[[verbs]]
+invocation = "ok"
+key = "enter"
+leave_broot = true
+internal = ":print_path"
+apply_to = "file"
