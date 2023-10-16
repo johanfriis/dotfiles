@@ -37,6 +37,17 @@ local function colors_for_appearance(appearance)
   end
 end
 
+local function swap_cmd_and_alt(key)
+  return {
+    key = key,
+    mods = 'CMD',
+    action = wezterm.action.SendKey {
+      key = key,
+      mods = 'ALT',
+    },
+  }
+end
+
 config.color_scheme = scheme_for_appearance(get_appearance())
 config.colors = colors_for_appearance(get_appearance())
 
@@ -67,118 +78,23 @@ config.keys = {
   -- },
 
   -- Rebind some command keys to alt
-  {
-    key = 'g',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'g',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'n',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'n',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'p',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'p',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'm',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'm',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'p',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'p',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 't',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 't',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 's',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 's',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'c',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'c',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'o',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'o',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'q',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'q',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'h',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'h',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'j',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'j',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'k',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'k',
-      mods = 'ALT',
-    },
-  },
-  {
-    key = 'l',
-    mods = 'CMD',
-    action = wezterm.action.SendKey {
-      key = 'l',
-      mods = 'ALT',
-    },
-  },
+  swap_cmd_and_alt('g'),
+  swap_cmd_and_alt('n'),
+  swap_cmd_and_alt('p'),
+  swap_cmd_and_alt('m'),
+  swap_cmd_and_alt('t'),
+  swap_cmd_and_alt('s'),
+  swap_cmd_and_alt('c'),
+  swap_cmd_and_alt('o'),
+  swap_cmd_and_alt('q'),
+  swap_cmd_and_alt('h'),
+  swap_cmd_and_alt('j'),
+  swap_cmd_and_alt('k'),
+  swap_cmd_and_alt('l'),
+  swap_cmd_and_alt('['),
+  swap_cmd_and_alt(']'),
 }
+
+
 
 return config

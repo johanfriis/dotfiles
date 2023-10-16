@@ -19,6 +19,7 @@ keybinds clear-defaults=true {
         bind "L" { Resize "Decrease Right"; }
         bind "=" "+" { Resize "Increase"; }
         bind "-" { Resize "Decrease"; }
+        bind "q" { SwitchToMode "Normal"; }
     }
     pane {
         bind "Alt p" { SwitchToMode "Normal"; }
@@ -36,6 +37,7 @@ keybinds clear-defaults=true {
         bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+        bind "q" { SwitchToMode "Normal"; }
     }
     move {
         bind "Alt m" { SwitchToMode "Normal"; }
@@ -45,6 +47,7 @@ keybinds clear-defaults=true {
         bind "j" "Down" { MovePane "Down"; }
         bind "k" "Up" { MovePane "Up"; }
         bind "l" "Right" { MovePane "Right"; }
+        bind "q" { SwitchToMode "Normal"; }
     }
     tab {
         bind "Alt t" { SwitchToMode "Normal"; }
@@ -67,6 +70,7 @@ keybinds clear-defaults=true {
         bind "8" { GoToTab 8; SwitchToMode "Normal"; }
         bind "9" { GoToTab 9; SwitchToMode "Normal"; }
         bind "Tab" { ToggleTab; }
+        bind "q" { SwitchToMode "Normal"; }
     }
     scroll {
         bind "Alt s" { SwitchToMode "Normal"; }
@@ -79,6 +83,7 @@ keybinds clear-defaults=true {
         bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
         bind "d" { HalfPageScrollDown; }
         bind "u" { HalfPageScrollUp; }
+        bind "q" { SwitchToMode "Normal"; }
         // uncomment this and adjust key if using copy_on_select=false
         bind "Alt c" { Copy; }
     }
@@ -96,6 +101,7 @@ keybinds clear-defaults=true {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
         bind "w" { SearchToggleOption "Wrap"; }
         bind "o" { SearchToggleOption "WholeWord"; }
+        bind "q" { SwitchToMode "Normal"; }
     }
     entersearch {
         bind "Alt c" "Esc" { SwitchToMode "Scroll"; }
@@ -120,6 +126,7 @@ keybinds clear-defaults=true {
             };
             SwitchToMode "Normal"
         }
+        bind "q" { SwitchToMode "Normal"; }
     }
     tmux {
         bind "[" { SwitchToMode "Scroll"; }
@@ -149,14 +156,16 @@ keybinds clear-defaults=true {
         bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }
         bind "Alt f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
-        bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
+        bind "Alt h" "Alt Left" { MoveFocus "Left"; }
+        bind "Alt l" "Alt Right" { MoveFocus "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
         bind "Alt k" "Alt Up" { MoveFocus "Up"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
-        bind "Alt [" { PreviousSwapLayout; }
-        bind "Alt ]" { NextSwapLayout; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+        // bind "Alt [" { PreviousSwapLayout; }
+        // bind "Alt ]" { NextSwapLayout; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }

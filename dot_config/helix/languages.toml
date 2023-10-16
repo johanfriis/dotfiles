@@ -1,11 +1,15 @@
+[language-server.lexical]
+command = "/Users/box/Code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh"
+
 [[language]]
 name = "elixir"
-scope = "source.elixir"
-injection-regex = "elixir"
-file-types = ["ex", "exs"]
-roots = ["mix.exs"]
+file-types = ["ex", "exs", "heex"]
+language-servers = ["lexical"]
 auto-format = true
-diagnostic-severity = "Hint"
-comment-token = "#"
-indent = {tab-width = 2, unit = " "}
-language-server = {command = "elixir-ls"}
+indent = { tab-width = 2, unit = "  " }
+ 
+# [[language]]
+# name = "heex"
+# language-servers = ["lexical"]
+# auto-format = true
+# indent = { tab-width = 2, unit = "  " }

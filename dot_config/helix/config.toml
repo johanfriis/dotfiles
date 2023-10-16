@@ -26,7 +26,6 @@ C-l = "select_next_sibling"
 0 = "goto_line_start"
 G = "goto_file_end"
 "$" = "goto_line_end"
-"%" = "match_brackets"
 
 H = ":buffer-previous"
 L = ":buffer-next"
@@ -47,14 +46,11 @@ C-n = [
   ":pipe sgpt code 'Using this comment, fill the line with the comment FILL_THIS.'"
 ]
 
-[keys.normal.y]
-y = ["extend_to_line_bounds", "yank", "normal_mode", "collapse_selection"]
-
 [keys.normal.space]
 w = ":write"
 c = "toggle_comments"
-o = [":new", ":insert-output pick", ":theme default", "select_all", "split_selection_on_newline", "goto_file", "goto_last_modified_file", ":buffer-close!", ":theme rose_pine_moon"]
-b = ":run-shell-command zellij run -fc -- xplr"
+O = [":new", ":insert-output pick", ":theme default", "select_all", "split_selection_on_newline", "goto_file", "goto_last_modified_file", ":buffer-close!", ":theme rose_pine_moon"]
+o = ":run-shell-command zellij run -fc -- xplr"
 q = ":buffer-close"
 
 [keys.normal.backspace]
@@ -62,6 +58,8 @@ g = ":run-shell-command zellij run -fc -- lazygit"
 f = ":run-shell-command zellij run -fc -- broot"
 
 [keys.insert]
+C-f = "move_char_right"
+C-b = "move_char_left"
 C-n = [
   "normal_mode",
   "extend_line",
