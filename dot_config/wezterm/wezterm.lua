@@ -85,7 +85,7 @@ config.keys = {
 	{
 		key = 'j',
 		mods = 'CMD',
-		action = wezterm.action.SendString '\x02\x74'
+		action = wezterm.action.SendString '\x13\x74'
 	},
 
 	-- Rebind some command keys to alt
