@@ -477,6 +477,12 @@ vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,
 
 -- Don't wrap lines
 vim.wo.wrap = false
+
+-- Default indentation
+vim.o.autoindent = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
 -- }}}
 
 -- {{{ Basic Keymaps
