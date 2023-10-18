@@ -515,19 +515,19 @@ require("lazy").setup({
 
       -- ELIXIR / LEXICAL
       -- https://github.com/lexical-lsp/lexical
-      -- if not configs.lexical then
-      --   configs.lexical = {
-      --     default_config = {
-      --       filetypes = { "elixir", "eelixir" },
-      --       cmd = { "/Users/box/Code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-      --       root_dir = function(fname)
-      --         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-      --       end,
-      --
-      --     }
-      --   }
-      -- end
-      -- lspconfig.lexical.setup({})
+      if not configs.lexical then
+        configs.lexical = {
+          default_config = {
+            filetypes = { "elixir", "eelixir" },
+            cmd = { "/Users/box/Code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+            root_dir = function(fname)
+              return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+            end,
+
+          }
+        }
+      end
+      lspconfig.lexical.setup({})
     end
   },
 
