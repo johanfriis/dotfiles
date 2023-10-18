@@ -333,6 +333,14 @@ require("lazy").setup({
   },
   -- }}}
 
+  -- {{{ TMUX
+  --     https://github.com/aserowy/tmux.nvim
+  {
+    "aserowy/tmux.nvim",
+    opts = {},
+  },
+  -- }}}
+
   -- {{{ LSP & COMPLETION
   --     https://github.com/VonHeikemen/lsp-zero.nvim
   {
