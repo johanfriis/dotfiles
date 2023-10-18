@@ -341,6 +341,59 @@ require("lazy").setup({
   },
   -- }}}
 
+  -- {{{ NEO-TREE
+  --     https://github.com/nvim-neo-tree/neo-tree.nvim
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = false,
+        enable_git_status = true,
+        enable_diagnostics = true,
+        window = {
+          width = 40,
+          mappings = {
+            ["o"] = "open",
+            ["u"] = "navigate_up",
+          },
+        },
+        buffers = {
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = true,
+          },
+        },
+        filesystem = {
+          follow_current_file = {
+            enabled = true,
+            leave_dirs_open = true,
+          },
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_by_name = {
+              "node_modules"
+            },
+            never_show = {
+              ".DS_Store",
+              "thumbs.db"
+            },
+          },
+        },
+      })
+
+      vim.keymap.set('n', '<leader>e',
+        ':Neotree action=focus source=filesystem position=left toggle=true reveal=true<cr>')
+    end
+  },
+  -- }}}
+
   -- {{{ LSP & COMPLETION
   --     https://github.com/VonHeikemen/lsp-zero.nvim
   {
