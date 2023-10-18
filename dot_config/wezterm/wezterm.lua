@@ -37,22 +37,21 @@ local function colors_for_appearance(appearance)
 	end
 end
 
-local function swap_cmd_and_alt(key)
-	return {
-		key = key,
-		mods = 'CMD',
-		action = wezterm.action.SendKey {
-			key = key,
-			mods = 'ALT',
-		},
-	}
-end
+-- local function swap_cmd_and_alt(key)
+-- 	return {
+-- 		key = key,
+-- 		mods = 'CMD',
+-- 		action = wezterm.action.SendKey {
+-- 			key = key,
+-- 			mods = 'ALT',
+-- 		},
+-- 	}
+-- end
 
 config.color_scheme = scheme_for_appearance(get_appearance())
 config.colors = colors_for_appearance(get_appearance())
 
 -- // FONT
---
 config.font = wezterm.font("CaskaydiaCove Nerd Font", {
 	weight = "Regular",
 	stretch = "Normal",
@@ -67,6 +66,7 @@ config.enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
+config.use_resize_increments = true -- resize in terminal cell size increments
 
 config.keys = {
 	-- Turn off the default CMD-m Hide action, allowing CMD-m to
