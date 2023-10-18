@@ -343,54 +343,99 @@ require("lazy").setup({
 
   -- {{{ NEO-TREE
   --     https://github.com/nvim-neo-tree/neo-tree.nvim
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("neo-tree").setup({
-        close_if_last_window = false,
-        enable_git_status = true,
-        enable_diagnostics = true,
-        window = {
-          width = 40,
-          mappings = {
-            ["o"] = "open",
-            ["u"] = "navigate_up",
-          },
-        },
-        buffers = {
-          follow_current_file = {
-            enabled = true,
-            leave_dirs_open = true,
-          },
-        },
-        filesystem = {
-          follow_current_file = {
-            enabled = true,
-            leave_dirs_open = true,
-          },
-          filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = false,
-            hide_by_name = {
-              "node_modules"
-            },
-            never_show = {
-              ".DS_Store",
-              "thumbs.db"
-            },
-          },
-        },
-      })
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   branch = "v3.x",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-tree/nvim-web-devicons",
+  --     "MunifTanjim/nui.nvim",
+  --   },
+  --   config = function()
+  --     require("neo-tree").setup({
+  --       close_if_last_window = false,
+  --       enable_git_status = true,
+  --       enable_diagnostics = true,
+  --       window = {
+  --         width = 40,
+  --         mappings = {
+  --           ["o"] = "open",
+  --           ["u"] = "navigate_up",
+  --         },
+  --       },
+  --       buffers = {
+  --         follow_current_file = {
+  --           enabled = true,
+  --           leave_dirs_open = true,
+  --         },
+  --       },
+  --       filesystem = {
+  --         follow_current_file = {
+  --           enabled = true,
+  --           leave_dirs_open = true,
+  --         },
+  --         filtered_items = {
+  --           hide_dotfiles = false,
+  --           hide_gitignored = false,
+  --           hide_by_name = {
+  --             "node_modules"
+  --           },
+  --           never_show = {
+  --             ".DS_Store",
+  --             "thumbs.db"
+  --           },
+  --         },
+  --       },
+  --     })
+  --
+  --     vim.keymap.set('n', '<leader>e',
+  --       ':Neotree action=focus source=filesystem position=left toggle=true reveal=true<cr>')
+  --   end
+  -- },
+  -- }}}
 
-      vim.keymap.set('n', '<leader>e',
-        ':Neotree action=focus source=filesystem position=left toggle=true reveal=true<cr>')
-    end
+  -- {{{ FERN
+  --     https://github.com/lambdalisue/fern.vim
+  --     https://github.com/lambdalisue/fern-hijack.vim
+  --     https://github.com/lambdalisue/fern-git-status.vim
+  --     https://github.com/lambdalisue/fern-mapping-project-top.vim
+  {
+    'lambdalisue/fern.vim',
+    dependencies = {
+      { 'lambdalisue/fern-hijack.vim' },
+      { 'lambdalisue/fern-git-status.vim' },
+      { "TheLeoP/fern-renderer-web-devicons.nvim" },
+      { "lambdalisue/fern-mapping-project-top.vim" },
+      -- { 'LumaKernel/fern-mapping-reload-all.vim' },
+      -- { 'yuki-yano/fern-preview.vim' },
+      -- { 'yuki-yano/fern-renderer-web-devicons.nvim' },
+      -- { 'lambdalisue/glyph-palette.vim' },
+    },
+    cmd = { 'Fern' },
+    config = function()
+      vim.g['fern#renderer'] = 'nvim-web-devicons'
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('fern-startup', {}),
+        pattern = { 'fern' },
+        callback = function()
+          local km = function(m, k, c)
+            vim.keymap.set(m, k, c, { silent = true, buffer = true, noremap = true })
+          end
+          km('n', 'p', '<Plug>(fern-action-project-top:reveal)')
+        end
+      })
+    end,
+    keys = {
+      { "<leader>e", "<cmd>Fern . -reveal=%:p<CR>", "n", desc = "Show Fern" },
+    }
+  },
+  {
+    'lambdalisue/fern-hijack.vim',
+    dependencies = {
+      'lambdalisue/fern.vim',
+      cmd = 'Fern',
+    },
   },
   -- }}}
 
@@ -470,19 +515,19 @@ require("lazy").setup({
 
       -- ELIXIR / LEXICAL
       -- https://github.com/lexical-lsp/lexical
-      if not configs.lexical then
-        configs.lexical = {
-          default_config = {
-            filetypes = { "elixir", "eelixir" },
-            cmd = { "/Users/box/Code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-            root_dir = function(fname)
-              return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-            end,
-
-          }
-        }
-      end
-      lspconfig.lexical.setup({})
+      -- if not configs.lexical then
+      --   configs.lexical = {
+      --     default_config = {
+      --       filetypes = { "elixir", "eelixir" },
+      --       cmd = { "/Users/box/Code/tools/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+      --       root_dir = function(fname)
+      --         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+      --       end,
+      --
+      --     }
+      --   }
+      -- end
+      -- lspconfig.lexical.setup({})
     end
   },
 
