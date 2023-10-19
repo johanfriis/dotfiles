@@ -441,6 +441,29 @@ require("lazy").setup({
   },
   -- }}}
 
+  -- {{{ CHAT-GPT
+  --     https://github.com/jackMort/ChatGPT.nvim
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    opts = {
+      api_key_cmd = "op read op://Personal/openai.com/terminal -n",
+      popup_input = {
+        submit = "<C-m>",
+      },
+    },
+    keys = {
+      { "<leader>cc", "<cmd>ChatGPT<CR>",                    { "n" },      desc = "Chat" },
+      { "<leader>cc", "<cmd>ChatGPTEditWithInstruction<CR>", { "n", "v" }, desc = "Edit with instructions" },
+    },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
+  -- }}}
+
   -- {{{ LSP & COMPLETION
   --     https://github.com/VonHeikemen/lsp-zero.nvim
   {
