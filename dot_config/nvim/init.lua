@@ -60,6 +60,7 @@ require("lazy").setup({
       wk.register({
         ["<leader>f"] = { name = "[F]ind" },
         ["<leader>d"] = { name = "[D]iagnostics" },
+        ["<leader>c"] = { name = "[C]hat" },
       })
     end,
   },
@@ -123,6 +124,7 @@ require("lazy").setup({
     keys = {
       { "<leader>b",  telescope_find_buffers,                           "n", desc = "Open Buffer List" },
       { "<leader>?",  "<cmd>Telescope help_tags<CR>",                   "n", desc = "Help" },
+      { "<leader>o",  telescope_find_files,                             "n", desc = "[O]pen (Quick)" },
       { "<leader>ff", telescope_find_files,                             "n", desc = "[F]ind [F]iles" },
       { "<leader>fg", "<cmd>Telescope live_grep<CR>",                   "n", desc = "[F]ind with [G]rep" },
       { "<leader>fd", "<cmd>Telescope diagnostics<CR>",                 "n", desc = "[F]ind [D]iagnostics" },
@@ -445,7 +447,9 @@ require("lazy").setup({
   --     https://github.com/jackMort/ChatGPT.nvim
   {
     "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
+    lazy = true,
+    -- event = "VeryLazy",
+    cmd = "ChatGPT",
     opts = {
       api_key_cmd = "op read op://Personal/openai.com/terminal -n",
       popup_input = {
@@ -454,7 +458,7 @@ require("lazy").setup({
     },
     keys = {
       { "<leader>cc", "<cmd>ChatGPT<CR>",                    { "n" },      desc = "Chat" },
-      { "<leader>cc", "<cmd>ChatGPTEditWithInstruction<CR>", { "n", "v" }, desc = "Edit with instructions" },
+      { "<leader>ce", "<cmd>ChatGPTEditWithInstruction<CR>", { "n", "v" }, desc = "Edit with instructions" },
     },
     dependencies = {
       "MunifTanjim/nui.nvim",
