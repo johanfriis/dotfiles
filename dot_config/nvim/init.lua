@@ -55,11 +55,13 @@ require("lazy").setup({
       vim.o.timeout = true
       vim.o.timeoutlen = 100
     end,
-    opts = {
-      window = {
-        winblend = 20
-      }
-    }
+    config = function()
+      local wk = require("which-key")
+      wk.register({
+        ["<leader>f"] = { name = "[F]ind" },
+        ["<leader>d"] = { name = "[D]iagnostics" },
+      })
+    end,
   },
   -- }}}
 
@@ -597,6 +599,9 @@ vim.o.softtabstop = 2
 -- Add sane indentiation commands
 vim.keymap.set("v", ">", ">gv")
 vim.keymap.set("v", "<", "<gv")
+
+-- easily close a buffer
+vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "[Q]uit Buffer" })
 
 -- }}}
 -- vim: foldmethod=marker ts=2 sts=2 sw=2 et
