@@ -448,7 +448,6 @@ require("lazy").setup({
   {
     "jackMort/ChatGPT.nvim",
     lazy = true,
-    -- event = "VeryLazy",
     cmd = "ChatGPT",
     opts = {
       api_key_cmd = "op read op://Personal/openai.com/terminal -n",
