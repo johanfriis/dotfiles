@@ -281,21 +281,6 @@ require("lazy").setup({
   },
   -- }}}
 
-  -- {{{ READLINE
-  --     https://github.com/linty-org/readline.nvim
-  {
-    "linty-org/readline.nvim",
-    config = function()
-      local readline = require 'readline'
-
-      vim.keymap.set('!', '<C-a>', readline.beginning_of_line)
-      vim.keymap.set('!', '<C-e>', readline.end_of_line)
-      vim.keymap.set('!', '<C-f>', '<Right>')
-      vim.keymap.set('!', '<C-b>', '<Left>')
-    end,
-  },
-  -- }}}
-
   -- {{{ LUALINE
   --     https://github.com/nvim-lualine/lualine.nvim
   {
@@ -326,6 +311,7 @@ require("lazy").setup({
 
   -- {{{ CONFORM
   --     https://github.com/stevearc/conform.nvim
+  --     Lightweight yet powerful formatter plugin for Neovim
   {
     'stevearc/conform.nvim',
     opts = {
@@ -415,6 +401,7 @@ require("lazy").setup({
       -- { 'yuki-yano/fern-renderer-web-devicons.nvim' },
       -- { 'lambdalisue/glyph-palette.vim' },
     },
+    lazy = true,
     cmd = { 'Fern' },
     config = function()
       vim.g['fern#renderer'] = 'nvim-web-devicons'
@@ -628,6 +615,12 @@ vim.keymap.set("v", "<", "<gv")
 
 -- easily close a buffer
 vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "[Q]uit Buffer" })
+
+-- emulate some readline keybinds in command mode
+vim.keymap.set('c', '<C-a>', '<Home>')
+vim.keymap.set('c', '<C-e>', '<End>')
+vim.keymap.set('c', '<C-b>', '<Left>')
+vim.keymap.set('c', '<C-f>', '<Right>')
 
 -- }}}
 -- vim: foldmethod=marker ts=2 sts=2 sw=2 et
